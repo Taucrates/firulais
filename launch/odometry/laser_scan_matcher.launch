@@ -31,7 +31,7 @@
     <!-- Output -->
     <param name="publish_tf" value="true"/>
     <param name="publish_pose" value="true"/>
-    <param name="publish_pose_stamped" value="false"/>
+    <param name="publish_pose_stamped" value="true"/>
 
     <!-- Scan matching -->
     <param name="max_iterations" value="50"/>
