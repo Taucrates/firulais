@@ -36,6 +36,18 @@ imu0_differential: false
 imu0_relative: true
 imu0_remove_gravitational_acceleration: true
 
+# Laser_scan_matcher pose
+pose0: pose_stamped
+pose0_config: [true, true, false,
+               false, false, true,
+               false, false, false,
+               false, false, false,
+               false, false, false]
+pose0_queue_size: 10
+pose0_nodelay: true
+pose0_differential: false
+pose0_relative: true
+
 #process_noise_covariance: [0.05, 0,    0,    0,    0,    0,    0,     0,     0,    0,    0,    0,    0,    0,    0,
 #                           0,    0.05, 0,    0,    0,    0,    0,     0,     0,    0,    0,    0,    0,    0,    0,
 #                           0,    0,    0.06, 0,    0,    0,    0,     0,     0,    0,    0,    0,    0,    0,    0,

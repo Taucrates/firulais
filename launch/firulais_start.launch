@@ -14,7 +14,7 @@
         <param name="publish_tf" type="bool" value="$(arg publish_odom_tf)" />
     </node>
 
-    <!--<node pkg="robot_localization" 
+    <node pkg="robot_localization" 
         type="ekf_localization_node"
         name="ekf_local"
         clear_params="true"
@@ -24,7 +24,7 @@
 
         <remap from="odometry/filtered" to="ekf_local/odom" />
 
-    </node>-->
+    </node>
     
     <include file="$(find firulais)/launch/odometry/laser_scan_matcher.launch">
     </include>

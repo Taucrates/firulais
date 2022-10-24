@@ -29,7 +29,7 @@
     <param name="kf_dist_angular" value="0.175"/>
 
     <!-- Output -->
-    <param name="publish_tf" value="true"/>
+    <param name="publish_tf" value="false"/>
     <param name="publish_pose" value="true"/>
     <param name="publish_pose_stamped" value="true"/>
 
