@@ -8,9 +8,9 @@
         respawn="true">
 
     <param name="base_frame" type="string" value="base_link" />
-    <param name="sigma_roll" type="double" value="0.2" />
-    <param name="sigma_pitch" type="double" value="0.2" />
-    <param name="sigma_yaw" type="double" value="0.2" />
+    <param name="sigma_roll" type="double" value="0.1" />
+    <param name="sigma_pitch" type="double" value="0.1" />
+    <param name="sigma_yaw" type="double" value="0.1" />
     <param name="sigma_roll_vel" type="double" value="0.2" />
     <param name="sigma_pitch_vel" type="double" value="0.2" />
     <param name="sigma_yaw_vel" type="double" value="0.2" />
