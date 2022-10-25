@@ -35,7 +35,7 @@
         </node>
 
         <include file="$(find firulais)/launch/odometry/laser_scan_matcher.launch">
-            <arg name="publish_tf" value="false"/>
+            <arg name="publish_odom2base_link_tf" value="false"/>
         </include>
 
     </group>
@@ -43,7 +43,7 @@
     <group unless="$(arg ekf_enabled)"> 
 
         <include file="$(find firulais)/launch/odometry/laser_scan_matcher.launch">
-            <arg name="publish_tf" value="true"/>
+            <arg name="publish_odom2base_link_tf" value="true"/>
         </include>
 
     </group>

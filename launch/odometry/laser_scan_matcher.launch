@@ -1,6 +1,6 @@
 <launch>
 
-  <arg name="publish_tf" default="true"/>
+  <arg name="publish_odom2base_link_tf" default="true"/>
   
   <node pkg="laser_scan_matcher" type="laser_scan_matcher_node" 
     name="laser_scan_matcher_node" output="screen">
@@ -32,7 +32,7 @@
     <param name="kf_dist_angular" value="0.175"/>
 
     <!-- Output -->
-    <param name="publish_tf" value="$(arg publish_tf)"/>
+    <param name="publish_tf" value="$(arg publish_odom2base_link_tf)"/>
     <param name="publish_pose" value="true"/>
     <param name="publish_pose_stamped" value="true"/>
 
