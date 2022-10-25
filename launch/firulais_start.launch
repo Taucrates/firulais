@@ -48,11 +48,6 @@
 
     </group>
 
-
-    <include file="$(find firulais)/launch/odometry/laser_scan_matcher.launch">
-        <arg name="publish_tf" value="$(arg ekf_enabled)"/>
-    </include>
-
     <!-- Cameras -->
     <group if="$(arg dog_cameras_enabled)"> 
 
