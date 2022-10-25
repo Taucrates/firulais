@@ -33,15 +33,27 @@
             <remap from="odometry/filtered" to="ekf_local/odom" />
 
         </node>
+
+        <include file="$(find firulais)/launch/odometry/laser_scan_matcher.launch">
+            <arg name="publish_tf" value="false"/>
+        </include>
+
+    </group>
+
+    <group unless="$(arg ekf_enabled)"> 
+
+        <include file="$(find firulais)/launch/odometry/laser_scan_matcher.launch">
+            <arg name="publish_tf" value="true"/>
+        </include>
+
     </group>
 
 
     <include file="$(find firulais)/launch/odometry/laser_scan_matcher.launch">
-        <group unless="$(arg ekf_enabled)">    
-            <param name="publish_tf" value="true"/>
-		</group>
+        <arg name="publish_tf" value="$(arg ekf_enabled)"/>
     </include>
 
+    <!-- Cameras -->
     <group if="$(arg dog_cameras_enabled)"> 
 
         <include file="$(find gscam)/launch/stereo.launch">
