@@ -2,6 +2,7 @@
     <arg name="ctrl_level" default="highlevel"/>
     <arg name="dog_cameras_enabled" default="false"/>
     <arg name="publish_odom_tf" default="false"/>
+    <arg name="ekf_enabled" default="false"/>
     <arg name="rviz" default="false"/>
     
 
@@ -20,18 +21,21 @@
     </include>
 
     <!-- Pose estimation -->
-    <node pkg="robot_localization" 
-        type="ekf_localization_node"
-        name="ekf_local"
-        clear_params="true"
-        output="screen"
-        respawn="true">
-        <rosparam command="load" file="$(find firulais)/params/ekf_local.yaml" />
+    <group if="$(arg ekf_enabled)"> 
+        <node pkg="robot_localization" 
+            type="ekf_localization_node"
+            name="ekf_local"
+            clear_params="true"
+            output="screen"
+            respawn="true">
+            <rosparam command="load" file="$(find firulais)/params/ekf_local.yaml" />
 
-        <remap from="odometry/filtered" to="ekf_local/odom" />
+            <remap from="odometry/filtered" to="ekf_local/odom" />
 
-    </node>
-    
+        </node>
+    </group>
+
+
     <include file="$(find firulais)/launch/odometry/laser_scan_matcher.launch">
     </include>
 
