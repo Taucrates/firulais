@@ -39,7 +39,7 @@ imu0_remove_gravitational_acceleration: true
 # Laser_scan_matcher pose
 pose0: pose_stamped
 pose0_config: [true, true, false,
-               false, false, true,
+               false, false, false,
                false, false, false,
                false, false, false,
                false, false, false]
