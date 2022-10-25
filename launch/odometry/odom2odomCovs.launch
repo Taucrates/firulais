@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node pkg="srv_mav_state_estimation"
+        type="odom2OdomCovs_node"
+        name="odom2odomCovs"
+        output="screen"
+        respawn="true">
+
+    <param name="fixed_frame" type="string" value="odom" />
+    <param name="base_frame" type="string" value="base_link" />
+    <param name="sigma_pos" type="double" value="0.1" />
+    <param name="sigma_ori" type="double" value="0.1" />
+    <param name="sigma_lvel" type="double" value="0.2" />
+    <param name="sigma_avel" type="double" value="0.2" />
+
+    <remap from="~odom_in" to="/dog_odom" />
+    <remap from="~odom_out" to="/odom" />
+  </node>
+
+</launch>

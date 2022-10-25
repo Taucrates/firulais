@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node pkg="srv_mav_state_estimation"
+        type="pose2PoseCovs_node"
+        name="pose2poseCovs"
+        output="screen"
+        respawn="true">
+
+    <param name="fixed_frame" type="string" value="odom" />
+    <param name="base_frame" type="string" value="base_link" />
+    <param name="sigma_x" type="double" value="0.1" />
+    <param name="sigma_y" type="double" value="0.2" />
+    <param name="sigma_z" type="double" value="0.2" />
+    <param name="roll" type="double" value="0.2" />
+    <param name="pitch" type="double" value="0.2" />
+    <param name="yaw" type="double" value="0.2" />
+
+    <remap from="~input_pose" to="/lsm_pose_stamped" />
+    <remap from="~output_pose" to="/pose_stamped" />
+  </node>
+
+</launch>

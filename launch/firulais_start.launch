@@ -2,18 +2,24 @@
     <arg name="ctrl_level" default="highlevel"/>
     <arg name="dog_cameras_enabled" default="false"/>
     <arg name="publish_odom_tf" default="false"/>
+    <arg name="rviz" default="false"/>
     
 
 
     <include file="$(find firulais)/launch/sensors/rplidar.launch">
     </include>
 
-
+    <!-- Drivers initialization -->
     <node pkg="unitree_legged_real" type="firu_start" name="firulais_start" output="screen" args="$(arg ctrl_level)">
         <param name="control_level" value="$(arg ctrl_level)"/>
         <param name="publish_tf" type="bool" value="$(arg publish_odom_tf)" />
     </node>
 
+
+    <include file="$(find firulais)/launch/odometry/odom2odomCovs.launch">
+    </include>
+
+    <!-- Pose estimation -->
     <node pkg="robot_localization" 
         type="ekf_localization_node"
         name="ekf_local"
@@ -34,19 +40,23 @@
         <include file="$(find gscam)/launch/stereo.launch">
         </include>
 
-         <!-- RVIZ -->    
-        <node name="rviz" pkg="rviz" type="rviz" args="-d $(find unitree_legged_real)/rviz/firulais_real_cams.rviz" output="log"/>
-		
+        <group if="$(arg rviz)"> 
+            <!-- RVIZ -->    
+            <node name="rviz" pkg="rviz" type="rviz" args="-d $(find unitree_legged_real)/rviz/firulais_real_cams.rviz" output="log"/>
+		</group>
+
 	</group>
 
     <group unless="$(arg dog_cameras_enabled)"> 
 
-         <!-- RVIZ -->    
-        <node name="rviz" pkg="rviz" type="rviz" args="-d $(find unitree_legged_real)/rviz/firulais_real.rviz" output="log"/>
-		
+        <group if="$(arg rviz)"> 
+            <!-- RVIZ -->    
+            <node name="rviz" pkg="rviz" type="rviz" args="-d $(find unitree_legged_real)/rviz/firulais_real.rviz" output="log"/>
+		</group>
+
 	</group>
     
-
+    <!-- Safety control -->
     <node pkg="firulais_behaviours" type="safety_control_node" name="safety_control_node" output="screen">
         <remap from="~twist_in" to="cmd_vel_raw"/>
         <remap from="~twist_out" to="cmd_vel"/>
