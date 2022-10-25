@@ -20,6 +20,9 @@
     <include file="$(find firulais)/launch/odometry/odom2odomCovs.launch">
     </include>
 
+    <include file="$(find firulais)/launch/odometry/imu2imuCovs.launch">
+    </include>
+
     <!-- Pose estimation -->
     <group if="$(arg ekf_enabled)"> 
         <node pkg="robot_localization" 

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node pkg="srv_mav_state_estimation"
+        type="imu2ImuCovs_node"
+        name="imu2imuCovs"
+        output="screen"
+        respawn="true">
+
+    <param name="base_frame" type="string" value="base_link" />
+    <param name="sigma_roll" type="double" value="0.2" />
+    <param name="sigma_pitch" type="double" value="0.2" />
+    <param name="sigma_yaw" type="double" value="0.2" />
+    <param name="sigma_roll_vel" type="double" value="0.2" />
+    <param name="sigma_pitch_vel" type="double" value="0.2" />
+    <param name="sigma_yaw_vel" type="double" value="0.2" />
+    <param name="sigma_x_acc" type="double" value="0.2" />
+    <param name="sigma_y_acc" type="double" value="0.2" />
+    <param name="sigma_z_acc" type="double" value="0.2" />
+
+    <remap from="~imu_in" to="/dog_imu/data" />
+    <remap from="~imu_out" to="/imu/data" />
+  </node>
+
+</launch>
