@@ -4,10 +4,13 @@
     <arg name="publish_odom_tf" default="false"/>
     <arg name="ekf_enabled" default="true"/>
     <arg name="rviz" default="false"/>
+    <arg name="laser_sensor" default="hokuyo"/>
+
+
     
 
 
-    <include file="$(find firulais)/launch/sensors/rplidar.launch">
+    <include file="$(find firulais)/launch/sensors/$(arg laser_sensor).launch">
     </include>
 
     <!-- Drivers initialization -->
