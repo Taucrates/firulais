@@ -5,9 +5,7 @@
     <arg name="ekf_enabled" default="true"/>
     <arg name="rviz" default="false"/>
     <arg name="laser_sensor" default="hokuyo"/>
-
-
-    
+    <arg name="move_base_enabled" default="true"/>
 
 
     <include file="$(find firulais)/launch/sensors/$(arg laser_sensor).launch">
@@ -85,6 +83,14 @@
         <remap from="~right_range" to="range_right"/>
         <remap from="~left_range" to="range_left"/>
     </node>
+
+    <!-- Move_base -->
+    <group if="$(arg move_base_enabled)"> 
+
+        <include file="$(find firulais)/launch/navigation/move_base.launch">
+        </include>
+
+	</group>
 
     
 </launch>
