@@ -13,7 +13,7 @@ local_costmap:
   height: 5.0
 
   cost_scaling_factor: 6.75
-  inflation_radius: 0.5
+  inflation_radius: 0.25
 
   plugins:
   - {name: obstacles_layer,  type: "costmap_2d::ObstacleLayer"}
