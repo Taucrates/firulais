@@ -2,7 +2,7 @@
 
 <!-- A simple launch file for the urg_node package. -->
 
-    <node name="hokuyo_transform" pkg="tf" type="static_transform_publisher" args="0.25 0.0 0.12 0.0 0.0 0.0 /base_link /laser 30"/>
+    <node name="hokuyo_transform" pkg="tf" type="static_transform_publisher" args="0.25 0.0 0.19 0.0 0.0 0.0 /base_link /laser 30"/>
 
 <!--  When using an IP-connected LIDAR, populate the "ip_address" parameter with the address of the LIDAR.
       Otherwise, leave it blank. If supported by your LIDAR, you may enable the publish_intensity

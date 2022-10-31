@@ -10,7 +10,7 @@ global_costmap:
   rolling_window: false
 
   cost_scaling_factor: 0.15
-  inflation_radius: 0.5
+  inflation_radius: 0.3
 
   always_send_full_costmap: true
   transform_tolerance: 1.0
