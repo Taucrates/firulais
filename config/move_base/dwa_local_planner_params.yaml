@@ -20,12 +20,12 @@ DWAPlannerROS:
   rot_stopped_vel: 0.4
   
   acc_lim_x: 1.0 # maximum is theoretically 2.0
-  acc_lim_th: 2.0
+  acc_lim_th: 1.7
   acc_lim_y: 0.0      # diff drive robot
 
 # Goal Tolerance Parameters
-  yaw_goal_tolerance: 3.14  # 0.05 3.14
-  xy_goal_tolerance: 0.55  # 0.10 0.55
+  yaw_goal_tolerance: 0.25  # 0.05 3.14
+  xy_goal_tolerance: 0.25  # 0.10 0.55
   # latch_xy_goal_tolerance: false
 
 # Forward Simulation Parameters
