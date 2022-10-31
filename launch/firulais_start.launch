@@ -8,8 +8,11 @@
     <arg name="move_base_enabled" default="true"/>
     <arg name="slam_enabled" default="true"/>
 
-
+    <!-- Sensors initialization -->
     <include file="$(find firulais)/launch/sensors/$(arg laser_sensor).launch">
+    </include>
+
+    <include file="$(find firulais)/launch/sensors/realsense.launch">
     </include>
 
     <!-- Drivers initialization -->
@@ -53,7 +56,7 @@
 
     </group>
 
-    <!-- Cameras -->
+    <!-- Internal Cameras -->
     <group if="$(arg dog_cameras_enabled)"> 
 
         <include file="$(find gscam)/launch/stereo.launch">
