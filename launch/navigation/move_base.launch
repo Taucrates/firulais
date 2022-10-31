@@ -2,13 +2,15 @@
 
     <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
 
+         <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+
         <remap from="cmd_vel" to="/cmd_vel_raw"/>
 
         <rosparam file="$(find firulais)/config/move_base/costmap_common_params.yaml" command="load" ns="global_costmap" />
         <rosparam file="$(find firulais)/config/move_base/costmap_common_params.yaml" command="load" ns="local_costmap" />
         <rosparam file="$(find firulais)/config/move_base/local_costmap_params.yaml" command="load" />
         <rosparam file="$(find firulais)/config/move_base/global_costmap_params.yaml" command="load" />
-        <rosparam file="$(find firulais)/config/move_base/base_local_planner_holonomic_params.yaml" command="load" />
+        <rosparam file="$(find firulais)/config/move_base/dwa_local_planner_params.yaml" command="load" />
         <rosparam file="$(find firulais)/config/move_base/move_base_params.yaml" command="load" />
         
 
