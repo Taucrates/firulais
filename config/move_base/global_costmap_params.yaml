@@ -7,7 +7,10 @@ global_costmap:
 
   static_map: false
 
-  rolling_window: false
+  rolling_window: true
+
+  width: 30.0
+  height: 30.0
   
   cost_scaling_factor: 20.00
   inflation_radius: 0.3
