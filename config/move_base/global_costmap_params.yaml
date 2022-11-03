@@ -12,7 +12,7 @@ global_costmap:
   cost_scaling_factor: 20.00
   inflation_radius: 0.3
 
-  always_send_full_costmap: false
+  always_send_full_costmap: true
   transform_tolerance: 1.0
 
   plugins:
