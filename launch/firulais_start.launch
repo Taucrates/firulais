@@ -36,7 +36,7 @@
             clear_params="true"
             output="screen"
             respawn="true">
-            <rosparam command="load" file="$(find firulais)/params/ekf_local.yaml" />
+            <rosparam command="load" file="$(find firulais)/params/ekf_height.yaml" />
 
             <remap from="odometry/filtered" to="ekf_local/odom" />
 
