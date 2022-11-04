@@ -7,7 +7,7 @@ debug: false
 
 map_frame: map             # Defaults to "map" if unspecified
 odom_frame: odom           # Defaults to "odom" if unspecified
-base_link_frame: base_link # Defaults to "base_link" if unspecified
+base_link_frame: base_footprint # Defaults to "base_link" if unspecified
 world_frame: odom          # Defaults to the value of odom_frame if unspecified
 
 # Own estimator
@@ -23,16 +23,16 @@ odom0_differential: true # if true, in that case EKF will use velocities from po
 odom0_relative: false
 
 # Height stimator (suposing always on the same height terrain)
-odom1: odom
-odom1_config: [false,  false, true,
-               false,  false, false,
-               false,  false, false,
-               false,  false, false,
-               false,  false, false]
-odom1_queue_size: 10
-odom1_nodelay: true
-odom1_differential: false # if true, in that case EKF will use velocities from position derivation
-odom1_relative: false
+# odom1: odom
+# odom1_config: [false,  false, true,
+#                false,  false, false,
+#                false,  false, false,
+#                false,  false, false,
+#                false,  false, false]
+# odom1_queue_size: 10
+# odom1_nodelay: true
+# odom1_differential: false # if true, in that case EKF will use velocities from position derivation
+# odom1_relative: false
 
 
 # IMU
