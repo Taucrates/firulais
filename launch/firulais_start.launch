@@ -7,8 +7,13 @@
     <arg name="rviz" default="false"/>
     <arg name="laser_sensor" default="hokuyo"/>
     <arg name="move_base_enabled" default="true"/>
-    <arg name="slam_enabled" default="true"/>
-    <arg name="pose_stimation_odom_tf" default="true"/>
+    <arg name="slam_selected" default="none"/>
+    <arg name="pose_estimation_odom_tf" default="true"/>
+
+    <group if="$(eval slam_selected == 'cartographer')"> 
+        <arg name="pose_estimation_odom_tf" value="false"/>
+        <arg name="publish_footprint_tf" value="true"/>
+    </group>
 
     <!-- Sensors initialization -->
     <include file="$(find firulais)/launch/sensors/$(arg laser_sensor).launch">
@@ -28,7 +33,14 @@
     <include file="$(find firulais)/launch/odometry/odom2odomCovs.launch">
     </include>
 
+    <group if="$(eval slam_selected == 'cartographer')"> 
+        <include file="$(find firulais)/launch/odometry/imu2imuCovs.launch">
+            <arg name="frame_id" value="base_footprint"/>
+        </include>
+    </group>
+
     <include file="$(find firulais)/launch/odometry/imu2imuCovs.launch">
+        <arg name="frame_id" value="base_link"/>
     </include>
 
     <!-- Pose estimation -->
@@ -40,7 +52,7 @@
             output="screen"
             respawn="true">
             <rosparam command="load" file="$(find firulais)/params/ekf_local.yaml" />
-            <param name="publish_tf" value="$(arg pose_stimation_odom_tf)"/>
+            <param name="publish_tf" value="$(arg pose_estimation_odom_tf)"/>
             <remap from="odometry/filtered" to="ekf_local/odom" />
 
         </node>
@@ -92,7 +104,7 @@
     </node>
 
     <!-- Gmapping -->
-    <group if="$(arg slam_enabled)"> 
+    <group if="$(eval slam_selected == 'gmapping')"> 
 
         <include file="$(find firulais)/launch/navigation/slam_gmapping.launch">
         </include>
