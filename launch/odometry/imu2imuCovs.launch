@@ -7,7 +7,7 @@
         output="screen"
         respawn="true">
 
-    <param name="base_frame" type="string" value="base_footprint" />
+    <param name="base_frame" type="string" value="base_footprint" /> <!-- base_footprint because cartographer set the map at the frame of the imu-->
     <param name="sigma_roll" type="double" value="0.1" />
     <param name="sigma_pitch" type="double" value="0.1" />
     <param name="sigma_yaw" type="double" value="0.1" />
