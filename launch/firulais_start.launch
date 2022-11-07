@@ -8,6 +8,7 @@
     <arg name="laser_sensor" default="hokuyo"/>
     <arg name="move_base_enabled" default="true"/>
     <arg name="slam_enabled" default="true"/>
+    <arg name="pose_stimation_odom_tf" default="true"/>
 
     <!-- Sensors initialization -->
     <include file="$(find firulais)/launch/sensors/$(arg laser_sensor).launch">
@@ -53,7 +54,7 @@
     <group unless="$(arg ekf_enabled)"> 
 
         <include file="$(find firulais)/launch/odometry/laser_scan_matcher.launch">
-            <arg name="publish_odom2base_link_tf" value="true"/>
+            <arg name="publish_odom2base_link_tf" value="$(arg pose_stimation_odom_tf)"/>
         </include>
 
     </group>
