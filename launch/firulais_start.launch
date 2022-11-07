@@ -2,7 +2,7 @@
     <arg name="ctrl_level" default="highlevel"/>
     <arg name="dog_cameras_enabled" default="false"/>
     <arg name="publish_odom_tf" default="false"/>
-    <arg name="publish_footprint_tf" default="false"/>
+    <!-- <arg name="publish_footprint_tf" default="false"/> -->
     <arg name="ekf_enabled" default="true"/>
     <arg name="rviz" default="false"/>
     <arg name="laser_sensor" default="hokuyo"/>
@@ -11,12 +11,12 @@
     <!-- <arg name="pose_estimation_odom_tf" default="true"/> -->
 
     <group if="$(eval slam_selected == 'cartographer')"> 
-        <arg name="publish_footprint_tf" value="true"/>
-        <arg name="pose_estimation_odom_tf" value="false"/>
+        <arg name="publish_footprint_tf" deafult="true"/>
+        <arg name="pose_estimation_odom_tf" default="false"/>
     </group>
     <group unless="$(eval slam_selected == 'cartographer')"> 
-        <arg name="publish_footprint_tf" value="false"/>
-        <arg name="pose_estimation_odom_tf" value="true"/>
+        <arg name="publish_footprint_tf" default="false"/>
+        <arg name="pose_estimation_odom_tf" default="true"/>
     </group>
 
     <!-- Sensors initialization -->
