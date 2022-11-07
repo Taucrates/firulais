@@ -6,7 +6,7 @@
 
   <node pkg="srv_mav_state_estimation"
         type="imu2ImuCovs_node"
-        name="imu2imuCovs"
+        name="$(arg node_name)"
         output="screen"
         respawn="true">
 
