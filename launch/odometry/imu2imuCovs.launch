@@ -3,6 +3,7 @@
 
   <arg name="frame_id" default="base_link"/>
   <arg name="node_name" default="imu2imuCovs"/>
+  <arg name="topic_out" default="/imu/data"/>
 
   <node pkg="srv_mav_state_estimation"
         type="imu2ImuCovs_node"
@@ -22,7 +23,7 @@
     <param name="sigma_z_acc" type="double" value="0.2" />
 
     <remap from="~imu_in" to="/dog_imu/data" />
-    <remap from="~imu_out" to="/imu/data" />
+    <remap from="~imu_out" to="$(arg topic_out)" />
   </node>
 
 </launch>
