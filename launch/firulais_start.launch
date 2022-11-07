@@ -37,11 +37,13 @@
     <group if="$(eval slam_selected == 'cartographer')"> 
         <include file="$(find firulais)/launch/odometry/imu2imuCovs.launch">
             <arg name="frame_id" value="base_footprint"/>
+            <arg name="node_name" value="imuCovsCarto"/>
         </include>
     </group>
 
     <include file="$(find firulais)/launch/odometry/imu2imuCovs.launch">
         <arg name="frame_id" value="base_link"/>
+        <arg name="node_name" value="imu2imuCovs"/>
     </include>
 
     <!-- Pose estimation -->
