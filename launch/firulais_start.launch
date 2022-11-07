@@ -10,14 +10,11 @@
     <arg name="slam_selected" default="none"/>
     <!-- <arg name="pose_estimation_odom_tf" default="true"/> -->
 
-    <group if="$(eval slam_selected == 'cartographer')"> 
-        <arg name="publish_footprint_tf" deafult="true"/>
-        <arg name="pose_estimation_odom_tf" default="false"/>
-    </group>
-    <group unless="$(eval slam_selected == 'cartographer')"> 
-        <arg name="publish_footprint_tf" default="false"/>
-        <arg name="pose_estimation_odom_tf" default="true"/>
-    </group>
+    <arg name="publish_footprint_tf" value="true" if="$(eval slam_selected == 'cartographer')" />
+    <arg name="publish_footprint_tf" default="false" unless="$(eval slam_selected == 'cartographer')"/>
+
+    <arg name="pose_estimation_odom_tf" default="true" unless="$(eval slam_selected == 'cartographer')" />
+    <arg name="pose_estimation_odom_tf" value="false" if="$(eval slam_selected == 'cartographer')"/>
 
     <!-- Sensors initialization -->
     <include file="$(find firulais)/launch/sensors/$(arg laser_sensor).launch">
