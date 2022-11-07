@@ -1,13 +1,15 @@
 <?xml version="1.0"?>
 <launch>
 
+  <arg name="frame_id" default="base_link"/>
+
   <node pkg="srv_mav_state_estimation"
         type="imu2ImuCovs_node"
         name="imu2imuCovs"
         output="screen"
         respawn="true">
 
-    <param name="base_frame" type="string" value="base_link" /> <!-- base_footprint because cartographer set the map at the frame of the imu-->
+    <param name="base_frame" type="string" value="$(arg frame_id)" /> <!-- base_footprint because cartographer set the map at the frame of the imu-->
     <param name="sigma_roll" type="double" value="0.1" />
     <param name="sigma_pitch" type="double" value="0.1" />
     <param name="sigma_yaw" type="double" value="0.1" />
