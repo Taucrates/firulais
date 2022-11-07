@@ -40,7 +40,7 @@
             output="screen"
             respawn="true">
             <rosparam command="load" file="$(find firulais)/params/ekf_local.yaml" />
-
+            <param name="publish_tf" value="$(arg pose_stimation_odom_tf)"/>
             <remap from="odometry/filtered" to="ekf_local/odom" />
 
         </node>
