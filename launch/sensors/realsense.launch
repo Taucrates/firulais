@@ -2,7 +2,7 @@
 
 <!-- A simple launch file for the urg_node package. -->
 
-    <node name="realsense_transform" pkg="tf" type="static_transform_publisher" args="0.28 0.0 0.10 0.0 0.3490658504 0.0 /base_link /camera_link 100"/>
+    <node name="realsense_transform" pkg="tf" type="static_transform_publisher" args="0.28 0.0 0.10 0.0 0.3490658504 0.0 /base_link /camera_link 50"/>
 
     <include file="$(find realsense2_camera)/launch/rs_camera.launch">
      <!-- <arg name="tf_prefix" value="realsense"/>-->
