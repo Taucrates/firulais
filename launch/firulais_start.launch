@@ -2,7 +2,7 @@
     <arg name="ctrl_level" default="highlevel"/>
     <arg name="dog_cameras_enabled" default="false"/>
     <arg name="publish_odom_tf" default="false"/>
-    <!-- <arg name="publish_footprint_tf" default="false"/> -->
+    <arg name="publish_footprint_tf" default="false"/>
     <arg name="ekf_enabled" default="true"/>
     <arg name="rviz" default="false"/>
     <arg name="laser_sensor" default="hokuyo"/>
