@@ -1,0 +1,53 @@
+<launch>
+
+  <arg name="resolution" default="0.25"/>
+  <arg name="max_ray" default="15.0"/>
+  
+  <node pkg="pointcloud_tools"
+        type="pcl_filter_ground"
+        name="pcl_filter_ground"
+        output="screen"
+        respawn="true">
+                <param name="apply_intensity" value="false"/>
+                <param name="min_intensity" value="0"/>
+                <param name="max_intensity" value="6000"/>
+                <param name="apply_reflectivity" value="true"/>
+                <param name="min_reflectivity" value="10"/>
+                <param name="max_reflectivity" value="60"/>
+                
+                <remap from="input" to="/os_cloud/points" />
+                <remap from="pcl_filter_ground/output" to="/pcl_filtered" />
+	</node>
+
+
+   <node name="voxblox_node" pkg="voxblox_ros" type="esdf_server" output="screen" args="-alsologtostderr" clear_params="true">
+    <remap from="pointcloud" to="/pcl_filtered" /> 
+    <!-- <remap from="pointcloud" to="/os_cloud/points" /> -->
+    <param name="tsdf_voxel_size" value="$(arg resolution)" />
+    <param name="tsdf_voxels_per_side" value="16" />
+    <!-- <param name="truncation_distance" value="0.45" /> -->
+    <param name="allow_clear" value="false" />
+    <!-- <param name="voxel_carving_enabled" value="true" /> -->
+    <param name="color_mode" value="normals"/>
+    <param name="use_tf_transforms" value="true" />
+    <param name="enable_icp" value="false" />
+    <param name="icp_iterations" value="10" />
+    <param name="verbose" value="false" />
+    <!-- <param name="update_mesh_every_n_sec" value="0.2" /> -->
+    <param name="max_ray_length_m" value="$(arg max_ray)" />
+    <param name="min_ray_length_m" value="0.5" />
+    <!-- <param name="min_time_between_msgs_sec" value="0.2" />-->
+    <param name="slice_level" value="0.13" /> 
+    <param name="method" value="fast" />
+    <!-- <param name="use_const_weight" value="true" /> -->
+    <!-- <param name="mesh_filename" value="$(find voxblox_ros)/mesh_results/$(anon kitti).ply" /> -->
+    <!-- <param name="world_frame" value="map" /> -->
+    <param name="world_frame" value="world" />
+
+    <param name="publish_pointclouds" value="true" />
+    <param name="publish_slices" value="true" />
+    <param name="publish_traversable" value="true" />
+    <param name="traversability_radius" value="0.3" />
+  </node>
+
+</launch>

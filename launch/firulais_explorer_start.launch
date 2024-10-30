@@ -1,0 +1,76 @@
+<launch>
+    <arg name="ctrl_level" default="highlevel"/>
+    <arg name="publish_footprint_tf" default="false"/>
+    <arg name="ekf_enabled" default="false"/>
+    <arg name="rviz" default="false"/>
+    <arg name="move_base_enabled" default="true"/>
+    <arg name="fixed_frame" default="map"/>
+
+    <!-- Voxblox params -->
+    <arg name="resolution" default="0.1"/>
+    <arg name="max_ray" default="5.0"/>
+
+
+    <!-- SENSORS INITIALIZATION -->
+    <!-- Ouster OS1-64 -->
+    <!-- <include file="$(find firulais)/launch/sensors/OS1_64.launch">
+    </include> -->
+
+    <!-- RealSense -->
+    <!-- <include file="$(find firulais)/launch/sensors/realsense.launch">
+    </include> -->
+
+    <!-- Livox360 -->
+    <include file="$(find firulais)/launch/sensors/livox360.launch"/>
+
+    <!-- DRIVERS INITIALIZATION -->
+    <!-- GO1 -->
+    <node pkg="unitree_legged_real" type="firu_start" name="firulais_start" output="screen" args="$(arg ctrl_level)">
+        <param name="control_level" value="$(arg ctrl_level)"/>
+        <param name="publish_footprint_tf" type="bool" value="$(arg publish_footprint_tf)" />
+        <param name="inverted_footprint_tf" type="bool" value="true" />
+    </node>
+
+    <!-- POSE ESTIMATION -->
+    <!-- FAST-LIO2 -->
+    <include file="$(find firulais)/launch/odometry/fast_lio_livox360.launch"/>
+
+    <!-- New tree generator -->
+    <node pkg="unitree_legged_real" type="tf_generator" name="tf_generator" output="log"/>
+
+    <!-- TFs -->
+    <!-- <node pkg="tf" type="static_transform_publisher" name="base_to_lidar" args="-0.02 0 -0.26 0 0 0 os_sensor base_link 100" /> -->
+    <!-- <node pkg="tf" type="static_transform_publisher" name="base_to_lidar" args="0.02 0 0.26 0 0 0 base_link os_sensor 100" /> -->
+    <!-- With fast lio -->
+    <!-- <node pkg="tf" type="static_transform_publisher" name="odom_livox" args="0.02 0 0.345 0 0.349 0 /odom /camera_init 100"/>  -->
+    <!-- <node pkg="tf" type="static_transform_publisher" name="odom_base_link" args="0.02 0 0.18 0 0.349 0 /odom /base_link 100"/>
+    <node pkg="tf" type="static_transform_publisher" name="base_link_livox" args="0.02 0 0.18 0 0.349 0 /odom /camera_init 100"/> -->
+    <node pkg="tf" type="static_transform_publisher" name="world_to_odom" args="0 0 0.06 0 0 0 /$(arg fixed_frame) /odom 10"/>
+    <node pkg="tf" type="static_transform_publisher" name="base_to_laser" args="0.02 0 0.28 0 0.380 0 /base_link /livox360_sensor 10"/>
+    
+    <!-- Safety control -->
+    <node pkg="firulais_behaviours" type="safety_control_node" name="safety_control_node" output="screen">
+        <remap from="~twist_in" to="cmd_vel_raw"/>
+        <remap from="~twist_out" to="cmd_vel"/>
+        <remap from="~high_state" to="high_state"/>
+        <remap from="~front_range" to="range_front"/>
+        <remap from="~right_range" to="range_right"/>
+        <remap from="~left_range" to="range_left"/>
+    </node>
+
+
+    <!-- Voxblox -->
+    <include file="$(find firulais)/launch/mapping/go1.launch">
+        <arg name="resolution" value="$(arg resolution)"/>
+        <arg name="max_ray" value="$(arg max_ray)"/>
+    </include>
+
+    <!-- Move_base -->
+    <group if="$(arg move_base_enabled)"> 
+
+        <include file="$(find firulais)/launch/navigation/move_base_exploration.launch"/>
+
+	</group>
+
+    
+</launch>

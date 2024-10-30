@@ -1,0 +1,85 @@
+<launch>
+   
+    <arg name="resolution" default="0.2"/>
+    <arg name="max_ray" default="5.0"/>
+
+
+    <node pkg="pointcloud_tools" type="pointcloud_filtering" name="pointcloud_filtering" output="screen" respawn="true">
+      <param name="resolution" value="$(arg resolution)"/>
+      <param name="apply_x_limits" type="bool" value="true"/>
+      <param name="apply_y_limits" type="bool" value="true"/>
+      <param name="apply_z_limits" type="bool" value="true"/>
+      <param name="apply_voxel_grid" type="bool" value="false"/>
+      <param name="apply_outlier_removal" type="bool" value="true"/>
+      <param name="x_filter_min" type="double" value="-1.5"/>
+      <param name="x_filter_max" type="double" value="10.0"/>
+      <param name="y_filter_min" type="double" value="-10.0"/>
+      <param name="y_filter_max" type="double" value="10.0"/>
+      <param name="z_filter_min" type="double" value="-6.0"/>
+      <param name="z_filter_max" type="double" value="6.0"/>
+      <param name="voxel_size" type="double" value="0.05"/>
+      <param name="mean_k" type="int" value="50"/>
+      <param name="std_dev_thresh" type="double" value="1.0"/>
+      <remap from="input" to="/livox/lidar" />
+      <remap from="pointcloud_filtering/output" to="/livox/lidar_filtered_cloud" />
+    </node>
+
+
+   <node name="voxblox_node" pkg="voxblox_ros" type="esdf_server" output="screen" args="-alsologtostderr" clear_params="true">
+
+    <remap from="pointcloud" to="/livox/lidar_filtered_cloud" />
+    <!-- <remap from="pointcloud" to="/livox/lidar" /> -->
+    
+    <param name="tsdf_voxel_size" value="$(arg resolution)" />
+    <param name="tsdf_voxels_per_side" value="8" />
+    <param name="color_mode" value="normals"/>
+    <param name="use_tf_transforms" value="true" />
+    <param name="enable_icp" value="false" />
+    <param name="icp_iterations" value="10" />
+    <param name="verbose" value="false" />
+    <param name="max_ray_length_m" value="$(arg max_ray)" />
+    <param name="min_ray_length_m" value="0.25" />
+    <param name="method" value="fast" />
+    <param name="mesh_filename" value="/home/tonitauler/voxblox_mesh.ply" />
+    <param name="world_frame" value="map" />
+    <param name="update_mesh_every_n_sec" value="1.0" />
+    <param name="update_esdf_every_n_sec" value="0.1" />
+
+    <param name="publish_pointclouds" value="false" />
+    <param name="publish_traversable" value="false" />
+    <param name="mesh_as_pointcloud" value="false" />
+    <param name="traversability_radius" value="0.0" /> 
+    <param name="use_freespace_pointcloud" value="true" /> 
+    <param name="freespace_pointcloud" value="/livox/lidar_filtered_cloud" /> 
+    <param name="publish_tsdf_map" value="true" />
+    <param name="publish_esdf_map" value="true" />
+    <!-- <param name="max_block_distance_from_body" value="20.0" /> Allows to generate a local map -->
+
+    <!-- COM GBPLANNER -->
+    <param name="allow_clear" value="True" />
+    <param name="clearing_ray_weight_factor" value="0.01" />
+    <param name="max_weight" value="200" />
+    <param name="mesh_min_weight" value="1e-4" />
+    <!-- <param name="max_consecutive_ray_collisions" value="1" /> -->
+    <param name="max_consecutive_ray_collisions" value="2" />
+    <param name="occupancy_min_distance_voxel_size_factor" value="0.5" />
+    <param name="sparsity_compensation_factor" value="15.0" />
+    <!-- <param name="sparsity_compensation_factor" value="50.0" /> -->
+    <param name="use_sparsity_compensation_factor" value="false" />
+    <!-- <param name="truncation_distance" value="0.6" /> -->
+    <param name="weight_ray_by_range" value="False" />
+    <param name="use_weight_dropoff" value="True" />
+    <param name="use_symmetric_weight_drop_off" value="False" />
+    <param name="voxel_carving_enabled" value="True" />
+    <param name="timestamp_tolerance_sec" value="0.1" />
+    <param name="integration_order_mode" value="sorted" />  
+    <!-- <param name="pointcloud_queue_size" value="1000" /> -->
+
+
+    <param name="clear_sphere_for_planning" value="false"/>
+    <param name="clear_sphere_radius" value="1.0"/>
+    <param name="occupied_sphere_radius" value="$(arg max_ray)"/>
+
+  </node>
+
+</launch>

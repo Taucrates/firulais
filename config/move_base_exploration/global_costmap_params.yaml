@@ -1,0 +1,27 @@
+global_costmap:
+  global_frame: map
+  robot_base_frame: base_link
+
+  update_frequency: 4.0 
+  publish_frequency: 2.0 
+
+  static_map: false
+
+  rolling_window: true
+
+  width: 100.0
+  height: 100.0
+  
+  cost_scaling_factor: 7.00
+  inflation_radius: 0.45
+
+  always_send_full_costmap: false
+  transform_tolerance: 1.0
+
+  plugins:
+    - {name: static_layer,    type: "costmap_2d::StaticLayer"}
+    # - {name: obstacles_layer,  type: "costmap_2d::ObstacleLayer"}
+    # - {name: 3d_obstacles_layer,  type: "costmap_2d::VoxelLayer"}
+    # - {name: fall_obstacles_layer,  type: "costmap_2d::VoxelLayer"}
+    # - {name: inflation_layer,     type: "costmap_2d::InflationLayer"}
+    

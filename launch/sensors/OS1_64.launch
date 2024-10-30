@@ -1,0 +1,31 @@
+<launch>
+
+ <!-- Driver -->
+  <!-- Configure your wired connection with the static (manual) IP 192.168.0.20/24 or 192.168.0.9/30, and initialize the connection always at the beginning. -->
+  <node pkg="ouster_ros" 
+        type="os_node"
+        name="os_driver"
+        output="screen"
+        respawn="true">
+    <param name="~/lidar_mode" type="string" value="1024x10"/> <!-- 512x10, 512x20, 1024x10, 1024x20, or 2048x10 -->
+    <param name="~/timestamp_mode" type="string" value=""/>
+    <param name="~/replay" value="false"/>
+    <param name="~/sensor_hostname" value="192.168.0.10"/>
+    <param name="~/udp_dest" value="192.168.0.20"/>
+    <param name="~/lidar_port" value="0"/>
+    <param name="~/imu_port" value="0"/>
+    <param name="~/metadata" value=""/>
+  </node>
+
+  <node pkg="ouster_ros"
+        type="os_cloud_node"
+        name="os_cloud"
+        output="screen"
+        respawn="true">
+    <remap from="~/os_config" to="/os_driver/os_config"/>
+    <remap from="~/lidar_packets" to="/os_driver/lidar_packets"/>
+    <remap from="~/imu_packets" to="/os_driver/imu_packets"/>
+    <param name="~/tf_prefix" value=""/>
+  </node>
+
+</launch>

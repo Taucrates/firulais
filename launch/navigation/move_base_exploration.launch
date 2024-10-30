@@ -1,0 +1,41 @@
+<launch>
+
+    <arg name="map_file" default="$(find firulais)/maps/support_map.yaml"/>
+
+    <!-- Map server -->
+    <!-- Carregar mapa en blanc per fer funcionar tot -->
+    <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+
+        <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+        <param name="base_global_planner" value="exploration_plan/ExplorationPlan"/>
+
+        <remap from="cmd_vel" to="/cmd_vel_raw"/>
+
+        <rosparam file="$(find firulais)/config/move_base_exploration/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find firulais)/config/move_base_exploration/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find firulais)/config/move_base_exploration/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find firulais)/config/move_base_exploration/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find firulais)/config/move_base_exploration/dwa_local_planner_params.yaml" command="load" />
+        <rosparam file="$(find firulais)/config/move_base_exploration/move_base_params.yaml" command="load" />
+        
+
+        <!-- <param name="local_costmap/2d_obstacles_layer/min_obstacle_height" value="0.0"/>
+        <param name="local_costmap/2d_obstacles_layer/max_obstacle_height" value="2.0"/> 
+ 
+        <param name="local_costmap/obstacles_layer/laser_scan/topic" value="/scan"/>
+        <param name="local_costmap/obstacles_layer/laser_scan/sensor_frame" value="laser"/>
+        <param name="local_costmap/obstacles_layer/laser_scan/inf_is_valid" value="true"/>
+
+        <param name="global_costmap/laser_scan_sensor/sensor_frame" value="laser"/>
+        <param name="global_costmap/laser_scan_sensor/topic" value="/scan"/> 
+        <param name="global_costmap/obstacles_layer/laser_scan/topic" value="/scan"/>
+        <param name="global_costmap/obstacles_layer/laser_scan/sensor_frame" value="laser"/> -->
+
+
+        <param name="global_costmap/3d_obstacles_layer/depth/topic" value="/livox/lidar"/>
+        <param name="local_costmap/3d_obstacles_layer/depth/topic"  value="/livox/lidar"/>
+
+    </node>
+</launch>

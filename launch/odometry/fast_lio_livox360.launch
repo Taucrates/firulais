@@ -1,0 +1,12 @@
+<launch>
+
+	<!-- FAST LIO 2 -->
+	<rosparam command="load" file="$(find fast_lio)/config/avia.yaml" />
+	
+	<node pkg="fast_lio" type="fastlio_mapping" name="laserMapping" output="log" /> 
+
+	<node pkg="tf" type="static_transform_publisher" name="aux_odom" args="-0.02 0 -0.28 0 -0.380 0 /camera_init /aux_odom 10"/> 
+	<node pkg="tf" type="static_transform_publisher" name="aux_base" args="-0.02 0 -0.28 0 -0.380 0 /body /aux_base 10"/> 
+
+  
+</launch>
